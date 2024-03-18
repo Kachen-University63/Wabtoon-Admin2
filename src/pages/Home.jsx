@@ -2,32 +2,26 @@ import React, { useEffect, useState } from 'react';
 import './css/Home.css';
 import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill } from 'react-icons/bs';
 import { BarChart, Bar, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 
 function Home() {
-  const [popularCartoons, setPopularCartoons] = useState([]);
-  const [totalFavorites, setTotalFavorites] = useState(0);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const collectionRef = collection(db, 'users');
       const f = query(collectionRef, orderBy('favorite', 'desc'));
-      
 
       const querySnapshot = await getDocs(f);
-      
 
-      const popularData = querySnapshot.docs.map(doc => ({
+      const newData = querySnapshot.docs.map(doc => ({
         id: doc.id,
-        title: doc.data().title,
-        favorite: doc.data().favorite,
+        email: doc.data().email,
+        separatedString: doc.data().favorite.map(str => str.split(' ')),
       }));
-      const totalFavorites = popularData.reduce((sum, cartoon) => sum + cartoon.favorite.length, 0);
 
-      setTotalFavorites(totalFavorites);
-
-      setPopularCartoons(popularData);
+      setData(newData);
     };
 
     fetchData();
@@ -45,24 +39,22 @@ function Home() {
             </div>
 
             <div className='main-cards'>
-              
 
-              <div className='card'>
-              {popularCartoons.map(cartoon => (
-                <div key={cartoon.id}>
-
-                  <p>Favorite Count: {cartoon.favorite} </p>
+              {data.map(item => (
+                <div className='card' key={item.id}>
+                  <div className='card-inner'>
+                    <h3>User ID: {item.id}</h3>
+                    <p>Email: {item.email}</p>
+                    <p>Separated String: {item.separatedString.map(subArray => subArray.join(',')).join('| ')}</p>
+                    
+                  </div>
                 </div>
               ))}
-               
-              </div>
-
+              
+              
 
              
-
             </div>
-
-           
           </main>
         </>
       ) : (

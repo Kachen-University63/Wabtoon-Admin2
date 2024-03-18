@@ -1,72 +1,98 @@
-.error-message {
-    color: red;
-  }
+/* AddEPModal.css */
 
-.p-ep{
-    color: #000;
+/* Modal Styles */
+.custom-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  max-width: 80%;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-  
+
+.custom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Content Styles */
 .modal-content-ep {
-    display: flex; /* เพิ่มคุณสมบัตินี้เพื่อใช้ Flexbox */
-    flex-direction: column; /* จัดเรียงเนื้อหาในแนวดิ่ง */
-    align-items: center; /* จัดตำแหน่งแนวตั้งกลาง */
-    text-align: center; /* จัดตำแหน่งข้อความในแนวนอนกลาง */
-    width: 400px; /* กำหนดความกว้างที่คุณต้องการ */
-  }
-/* เพิ่มสีตัวหนังสือใน label เป็นสีดำ */
-.label-ep {
-    color: black;
-  }
-.modal-content-ep h3{
-    color: #000;
+  margin-bottom: 20px;
 }
-  
-  /* เพิ่มกรอบและโค้งให้กับ input */
-  .input-ep {
-    border: 2px solid #ccc; /* เพิ่มความหนาให้กับเส้นกรอบ */
-    border-radius: 10px; /* เพิ่มความโค้งของขอบ */
-    padding: 10px; /* เพิ่มช่องว่างภายใน input */
-    width: 65%; /* ทำให้ input กว้างเต็มพื้นที่ของ parent */
-    height: 20px; /* กำหนดความสูงของ input */
-    font-size: 16px; /* กำหนดขนาดตัวอักษรใหญ่ขึ้น */
-    font-weight: bold; /* ทำให้ตัวอักษรตัวหนา */
-  }
-  
 
 .img-input-container-ep {
-    margin: 20px 0;
-    cursor: pointer;
-    border: 2px solid #121212;
-    padding: 20px;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-    height: 315px;
-    width: 300px;
-    overflow: hidden;
-    border-radius: 20px;
-    display: flex; /* เพิ่มคุณสมบัตินี้เพื่อใช้ Flexbox */
-    justify-content: center; /* จัดตำแหน่งแนวนอนกลาง */
-    align-items: center; /* จัดตำแหน่งแนวตั้งกลาง */
-  }
-
-.input-row-model button {
-    margin-right: 10px; /* เพิ่มระยะห่างด้านขวาระหว่างปุ่ม */
-  }
-
-.save-button{
-    background-color: #ff1493;
-    transition: background-color 0.3s ease;
+  border: 2px dashed #090909;
+  padding: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
 }
 
-.save-button:hover{
-    background-color: #d01076;
+.p-ep {
+  margin: 0;
+  color: black; /* เปลี่ยนสีของข้อความเป็นสีดำ */
 }
 
-.delete-button{
-    background-color: rgb(255, 75, 66);
-    transition: background-color 0.3s ease;
+.input-row-model {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.delete-button:hover{
-    background-color: rgb(215, 44, 35);
+.label-ep {
+  margin-right: 10px;
+}
+
+.input-ep {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #060606;
+}
+
+.error-message {
+  color: #f44336;
+  margin: 5px 0;
+}
+
+/* Button Styles */
+button {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #bdbdbd;
+}
+
+.save-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #388e3c;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
 }
