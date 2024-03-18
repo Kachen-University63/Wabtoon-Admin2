@@ -5,6 +5,7 @@ import { BarChart, Bar, CartesianGrid, Legend, Line, LineChart, ResponsiveContai
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import Favorite from '../Dashboard/Favorite';
+import LiChart from '../Dashboard/LiChart';
 
 
 function Home() {
@@ -16,6 +17,7 @@ function Home() {
       {isLoggedIn ? (
         <>             
             <Favorite/>
+            <LiChart/>
         </>
       ) : (
         <>
