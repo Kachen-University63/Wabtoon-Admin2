@@ -2,26 +2,32 @@ import React, { useEffect, useState } from 'react';
 import './css/Home.css';
 import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill } from 'react-icons/bs';
 import { BarChart, Bar, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 
 function Home() {
-  const [data, setData] = useState([]);
+  const [popularCartoons, setPopularCartoons] = useState([]);
+  const [totalFavorites, setTotalFavorites] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       const collectionRef = collection(db, 'users');
-      const f = query(collectionRef, where('favorite', 'array-contains', 'RB'));
+      const f = query(collectionRef, orderBy('favorite', 'desc'));
+      
 
       const querySnapshot = await getDocs(f);
+      
 
-      const newData = querySnapshot.docs.map(doc => ({
+      const popularData = querySnapshot.docs.map(doc => ({
         id: doc.id,
-        email: doc.data().email,
-        separatedString: doc.data().favorite.map(str => str.split(' ')),
+        title: doc.data().title,
+        favorite: doc.data().favorite,
       }));
+      const totalFavorites = popularData.reduce((sum, cartoon) => sum + cartoon.favorite.length, 0);
 
-      setData(newData);
+      setTotalFavorites(totalFavorites);
+
+      setPopularCartoons(popularData);
     };
 
     fetchData();
@@ -39,38 +45,21 @@ function Home() {
             </div>
 
             <div className='main-cards'>
-              <div className='card'>
-                <div className='card-inner'>
-                  <h3>PRODUCTS</h3>
-                  <BsFillArchiveFill className='card_icon' />
-                </div>
-                <h1>300</h1>
-              </div>
+              
 
               <div className='card'>
-                {data.map(item => (
-                  <div key={item.id}>
-                    <p>Separated String: {item.separatedString.map(subArray => subArray.join(',')).join('| ')}</p>
-                    {/* <BsFillGrid3X3GapFill  /> */}
-                  </div>
-                ))}
+              {popularCartoons.map(cartoon => (
+                <div key={cartoon.id}>
+
+                  <p>Favorite Count: {cartoon.favorite} </p>
+                </div>
+              ))}
+               
               </div>
 
-              <div className='card'>
-                <div className='card-inner'>
-                  <h3>CUSTOMERS</h3>
-                  <BsPeopleFill className='card_icon' />
-                </div>
-                <h1>33</h1>
-              </div>
 
-              <div className='card'>
-                <div className='card-inner'>
-                  <h3>ALERTS</h3>
-                  <BsFillBellFill className='card_icon' />
-                </div>
-                <h1>42</h1>
-              </div>
+             
+
             </div>
 
            
