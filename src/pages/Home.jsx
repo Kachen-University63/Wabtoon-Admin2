@@ -4,7 +4,8 @@ import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill }
 import { BarChart, Bar, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
-import Dashborad from './Dashborad';
+import Favorite from '../Dashboard/Favorite';
+
 
 function Home() {
   
@@ -14,7 +15,7 @@ function Home() {
     <div className="home-container">
       {isLoggedIn ? (
         <>             
-            <Dashborad/>
+            <Favorite/>
         </>
       ) : (
         <>

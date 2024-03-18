@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
+import 
+{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
+ from 'react-icons/bs'
+ import 
+ { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
+ from 'recharts';
+ import '../Dashboard/CSS/favorite.css'
 
-
-function Dashborad() {
+function Favorite() {
 
     const [valuesWithCounts, setValuesWithCounts] = useState([]);
 
@@ -36,23 +42,24 @@ function Dashborad() {
     }, []);
   
     return (
-      <div className='main-container'>
-        <div className="main-title">
-        <h1>Array Values with Counts:</h1>
-         </div>
-            <ul className='main-cards'>
-                <ul className='card'>
-                    <ul>
+      <ul className='main-container'>
+        <ul className="main-title">
+        <h1>DashBoard</h1>
+         </ul>
+            <ul className='card'>
+              <ul className='color-card'>
           {valuesWithCounts.map(item => (
-            <li key={item.value}>
-              การ์ตูนรหัสเรื่อง: {item.value}, Count: {item.count}
-            </li>
-          ))}
-          </ul>
-          </ul>
-        </ul>
-            
+            <div key={item.value}>
+              การ์ตูนรหัสเรื่อง: {item.value} | Count: {item.count}
             </div>
+            
+          ))}
+    </ul>
+          </ul>
+          </ul>
+       
+            
+            
         
      
     );
@@ -81,5 +88,5 @@ function Dashborad() {
 //   );
 }
 
-export default Dashborad;
+export default Favorite;
 
