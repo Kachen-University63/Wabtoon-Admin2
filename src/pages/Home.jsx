@@ -43,9 +43,9 @@ function Home() {
               {data.map(item => (
                 <div className='card' key={item.id}>
                   <div className='card-inner'>
-                    <h3>User ID: {item.id}</h3>
-                    <p>Email: {item.email}</p>
-                    <p>Separated String: {item.separatedString.map(subArray => subArray.join(',')).join('| ')}</p>
+                    
+                 
+                    <p>Favorite: {item.separatedString.map(subArray => subArray.join(',')).join('| ')}</p>
                     
                   </div>
                 </div>

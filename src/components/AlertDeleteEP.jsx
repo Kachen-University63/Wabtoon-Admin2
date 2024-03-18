@@ -28,6 +28,8 @@ function AlertDeleteEP({ modalIsOpen, setModalIsOpen, storyId, refEp }) {
                         // console.log('Document data:', doc.data());
                         // ลบเอกสารที่ตรงกับ refEp
                         await deleteDoc(doc.ref);
+                        
+                        window.location.reload();
                         console.log('Document with ID:', doc.id, 'deleted successfully');
                     }
                 });
@@ -36,10 +38,11 @@ function AlertDeleteEP({ modalIsOpen, setModalIsOpen, storyId, refEp }) {
             }
 
             setModalIsOpen(false);
-            window.location.reload();
+            
         } catch (error) {
             console.error("Error deleting document: ", error);
         }
+       
     };
 
     return (
