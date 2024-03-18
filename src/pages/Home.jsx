@@ -4,58 +4,17 @@ import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill }
 import { BarChart, Bar, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
+import Dashborad from './Dashborad';
 
 function Home() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const collectionRef = collection(db, 'users');
-      const f = query(collectionRef, orderBy('favorite', 'desc'));
-
-      const querySnapshot = await getDocs(f);
-
-      const newData = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        email: doc.data().email,
-        separatedString: doc.data().favorite.map(str => str.split(' ')),
-      }));
-
-      setData(newData);
-    };
-
-    fetchData();
-  }, []);
-
+  
   const isLoggedIn = localStorage.getItem('loggedInUsername');
 
   return (
     <div className="home-container">
       {isLoggedIn ? (
-        <>
-          <main className='main-container'>
-            <div className='main-title'>
-              <h3>DASHBOARD</h3>
-            </div>
-
-            <div className='main-cards'>
-
-              {data.map(item => (
-                <div className='card' key={item.id}>
-                  <div className='card-inner'>
-                    
-                 
-                    <p>Favorite: {item.separatedString.map(subArray => subArray.join(',')).join('| ')}</p>
-                    
-                  </div>
-                </div>
-              ))}
-              
-              
-
-             
-            </div>
-          </main>
+        <>             
+            <Dashborad/>
         </>
       ) : (
         <>
