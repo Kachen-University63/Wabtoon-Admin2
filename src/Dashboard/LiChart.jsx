@@ -35,7 +35,7 @@ const LiChart = () => {
   }, []);
 
   return (
-    <div>
+    <div className='title'>
       <h2>Data Line Chart</h2>
       <LineChart width={800} height={400} data={chartData}>
         <CartesianGrid strokeDasharray="3 3" />

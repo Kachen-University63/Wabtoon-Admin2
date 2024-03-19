@@ -50,9 +50,16 @@ function Favorite() {
               <ul className='color-card'>
           {valuesWithCounts.map(item => (
             <div key={item.value}>
-              การ์ตูนรหัสเรื่อง: {item.value} | Count: {item.count}
+              การ์ตูนรหัสเรื่อง: {item.value}
+              จำนวนการกดถูกใจ: {item.count}
             </div>
             
+            
+              
+            
+
+            
+           
           ))}
     </ul>
           </ul>

@@ -6,6 +6,7 @@ import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import Favorite from '../Dashboard/Favorite';
 import LiChart from '../Dashboard/LiChart';
+import IncomeChart from '../Dashboard/IncomeChart'
 
 
 function Home() {
@@ -18,6 +19,7 @@ function Home() {
         <>             
             <Favorite/>
             <LiChart/>
+            <IncomeChart/>
         </>
       ) : (
         <>
