@@ -3,14 +3,10 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import moment from 'moment';
-import '../Dashboard/CSS/income.css';
+import '../Dashboard/CSS/incomechart.css';
 
 const IncomeChart = () => {
     const [incomeData, setIncomeData] = useState([]);
-    const getBarColor = (entry) => {
-      // Example logic: apply gradient color for bars with value > 50
-      return entry.value > 50 ? 'gradient-bar' : 'normal-bar';
-  };
 
     useEffect(() => {
         const fetchIncomeData = async () => {
@@ -21,10 +17,15 @@ const IncomeChart = () => {
                 const dataArr = [];
                 snapshot.forEach(doc => {
                     const data = doc.data();
-                    // Format timestamp to a readable format using moment.js
-                    data.PurchaseTime = moment(data.PurchaseTime.toDate()).format('YYYY-MM-DD HH:mm:ss');
-                    dataArr.push(data);
+                    const formattedTimestamp = moment(data.PurchaseTime.toDate()).format('MMMM');
+                    const newData = {
+                        PurchaseTime: formattedTimestamp,
+                        coin: data.coin,
+                        Title: data.title // Add title data to the chart
+                    };
+                    dataArr.push(newData);
                 });
+
                 setIncomeData(dataArr);
             } catch (error) {
                 console.error('Error fetching income data:', error);
@@ -32,24 +33,23 @@ const IncomeChart = () => {
         };
 
         fetchIncomeData();
-
     }, []);
 
-   
     return (
         <div className="income-container">
-          
             <h1>Income Data</h1>
-            <BarChart width={800} height={400} data={incomeData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="PurchaseTime" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="coin" fill="#E46C88" />
-                
-            </BarChart>
+            <div className="bar">
+                <BarChart width={800} height={400} data={incomeData} title="Income Chart">
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="PurchaseTime" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="coin" fill="#E46C88" name="รายได้" />
+                    <Bar dataKey="Title" fill="#82ca9d" name="ชื่อเรื่อง" /> {/* Display Title in the bar */}
+                </BarChart>
             </div>
+        </div>
     );
 };
 

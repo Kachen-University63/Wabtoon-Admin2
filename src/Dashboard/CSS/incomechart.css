@@ -1,0 +1,18 @@
+.income-container{
+    display: flex;
+    font-size: 20px;   
+}
+
+.bar {
+    
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  margin: 15px 0;
+
+
+
+  }
+
+
+  

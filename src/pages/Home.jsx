@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './css/Home.css';
-import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill } from 'react-icons/bs';
-import { BarChart, Bar, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import Favorite from '../Dashboard/Favorite';
 import LiChart from '../Dashboard/LiChart';
 import IncomeChart from '../Dashboard/IncomeChart'
-
+import IncomeCard from '../Dashboard/IncomeCard'
 
 function Home() {
   
@@ -17,9 +15,25 @@ function Home() {
     <div className="home-container">
       {isLoggedIn ? (
         <>             
-            <Favorite/>
-            <LiChart/>
-            <IncomeChart/>
+            <div className="column">
+            <h1>DashBoard</h1>
+            <div className="row">
+              <div className="favorite">
+                <Favorite/>
+              </div>
+              <div className="income-card">
+                <IncomeCard />
+              </div>
+            </div>
+            <div className="row">
+              <div className="LiChart">
+                <LiChart />
+              </div>
+              <div className="IncomeChart ">
+                <IncomeChart />
+              </div>
+            </div>
+          </div> 
         </>
       ) : (
         <>

@@ -44,10 +44,13 @@ function Favorite() {
     return (
       <ul className='main-container'>
         <ul className="main-title">
-        <h1>DashBoard</h1>
+       
          </ul>
             <ul className='card'>
               <ul className='color-card'>
+                <ul className='harder'>
+
+                </ul>
           {valuesWithCounts.map(item => (
             <div key={item.value}>
               การ์ตูนรหัสเรื่อง: {item.value}
