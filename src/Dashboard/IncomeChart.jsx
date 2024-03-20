@@ -46,7 +46,7 @@ const IncomeChart = () => {
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="coin" fill="#E46C88" name="รายได้" />
-                    <Bar dataKey="Title" fill="#82ca9d" name="ชื่อเรื่อง" /> {/* Display Title in the bar */}
+                    <Bar dataKey="Title" fill="#F893B5" name="ชื่อเรื่อง" /> {/* Display Title in the bar */}
                 </BarChart>
             </div>
         </div>
