@@ -1,5 +1,19 @@
-.title{
-    position: relative;
-    left: 30px;
-    border: 30px
+.line-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    
+    
+
 }
+
+.line-title p {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+  }
+
+.line-up {
+    stroke-width: 1px
+}
+

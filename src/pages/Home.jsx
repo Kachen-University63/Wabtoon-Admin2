@@ -4,8 +4,8 @@ import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import Favorite from '../Dashboard/Favorite';
 import LiChart from '../Dashboard/LiChart';
-import IncomeChart from '../Dashboard/IncomeChart'
-import IncomeCard from '../Dashboard/IncomeCard'
+import IncomeChart from '../Dashboard/IncomeChart';
+import IncomeCard from '../Dashboard/IncomeCard';
 
 function Home() {
   
@@ -17,14 +17,18 @@ function Home() {
         <>             
             <div className="column">
             <h1>DashBoard</h1>
-            <div className="row">
-              <div className="favorite">
-                <Favorite/>
-              </div>
-              <div className="income-card">
-                <IncomeCard />
-              </div>
             </div>
+            <div className='card' >
+              <div className="card-inner">
+                <Favorite />
+                </div>
+              
+              <div className="card-inner">
+                <IncomeCard  />
+              </div> 
+           </div>
+            
+
             <div className="row">
               <div className="LiChart">
                 <LiChart />
@@ -33,7 +37,7 @@ function Home() {
                 <IncomeChart />
               </div>
             </div>
-          </div> 
+          
         </>
       ) : (
         <>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 
-import '../Dashboard/CSS/favorite.css'
+
 
 const Income = () => {
     const [incomeData, setIncomeData] = useState([]);
@@ -52,7 +52,7 @@ const Income = () => {
     for (const storyId in incomeTotals) {
         if (incomeTotals[storyId].coin > maxCoin) {
             maxCoin = incomeTotals[storyId].coin;
-            maxCoinStory = incomeTotals[storyId];
+            maxCoinStory = { ...incomeTotals[storyId], storyId: storyId };
         }
     }
 
@@ -65,7 +65,7 @@ const Income = () => {
     for (const storyId in incomeTotals) {
         if (incomeTotals[storyId].coin < minCoin) {
             minCoin = incomeTotals[storyId].coin;
-            minCoinStory = incomeTotals[storyId];
+            minCoinStory = { ...incomeTotals[storyId], storyId: storyId };
         }
     }
 
@@ -78,72 +78,88 @@ const Income = () => {
     const sortedIncome = Object.entries(incomeTotals).sort((a, b) => b[1].totalIncome - a[1].totalIncome);
 
     return (
-        <div className="income-container">
-            <div className="card">
+        <div className='card-container-incom'>
+            < div className='card-ef-income'>
+                <div className='main-title-income'>
 
-                <div className="row">
-                    <table className="main-container">
-                        <div className="row">
-                            <div className="color-card">
-                                <ul className="head">
-                                    <h1>INCOME DATA</h1>
-                                </ul>
-                                <table className="table">
+                    <><p>ข้อมูลรายได้</p></>
 
-                                    <thead>
-                                        <tr>
-                                            <th>Story ID</th>
-                                            <th>Title</th>
-                                            <th>Coin</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {sortedIncome.map(([storyId, { coin, title }], index) => (
-                                            <tr key={index}>
-                                                <td>{storyId}</td>
-                                                <td>{title}</td>
-                                                <td>{coin}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                            {/* Card for maximum coin story */}
-                            <div className="color-card">
-                                <ul className="head">
-                                    <h1>Story with the Max coin:</h1>
-                                </ul>
-                                <table className='maxtable'>
-                                    {maxCoinStory && (
-                                        <div>
-                                            <p>Story ID: {maxCoinStory.storyId}</p>
-                                            <p>Title: {maxCoinStory.title}</p>
-                                            <p>Coin: {maxCoinStory.coin}</p>
-                                        </div>
-                                    )}
-                                </table>
-
-                            </div>
-                            {/* Card for minimum coin story */}
-                            <div className="color-card">
-                                <ul className="head">
-                                    <h1>Story with the Min coin:</h1>
-                                </ul>
-                                <table className='maxtable'>
-                                    {minCoinStory && (
-                                        <div>
-                                            <p>Story ID: {minCoinStory.storyId}</p>
-                                            <p>Title: {minCoinStory.title}</p>
-                                            <p>Coin: {minCoinStory.coin}</p>
-                                        </div>
-                                    )}
-                                </table>
-                            </div>
-                        </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>รหัสเรื่อง</th>
+                                <th>ชื่อเรื่อง</th>
+                                <th>รายได้</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {sortedIncome.map(([storyId, { coin, title }], index) => (
+                                <tr key={index}>
+                                    <td>{storyId}</td>
+                                    <td>{title}</td>
+                                    <td>{coin}</td>
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
+
                 </div>
+
             </div>
+
+
+            {/* Card for maximum coin story */}
+            <div className='card-container-incom' >
+                <div className='card-ef-income' >
+                    <div className='main-title-income'>
+                        <p>การ์ตูนที่มีรายได้สูงที่สุด</p>
+                        <div  >
+                            <table >
+                                {maxCoinStory && (
+                                    <div>
+                                        <p>รหัสเรื่อง: {maxCoinStory.storyId}</p>
+                                        <p>ชื่อเรื่อง: {maxCoinStory.title}</p>
+                                        <p>รายได้: {maxCoinStory.coin}</p>
+                                    </div>
+
+                                )}
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            {/* Card for minimum coin story */}
+            <div className='card-container-incom' >
+                <div className='card-ef-income' >
+                    <div className='main-title-income' >
+                        <p>การ์ตูนที่มีรายได้น้อยที่สุด</p>
+                        <div >
+                            <table>
+                                {minCoinStory && (
+                                    <div>
+                                        <p>รหัสเรื่อง: {minCoinStory.storyId}</p>
+                                        <p>ชื่อเรื่อง: {minCoinStory.title}</p>
+                                        <p>รายได้: {minCoinStory.coin}</p>
+                                    </div>
+                                )}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
         </div>
+
+
+
+
     );
 };
 
