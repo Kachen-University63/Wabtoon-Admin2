@@ -3,9 +3,10 @@ import './css/Home.css';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import Favorite from '../Dashboard/Favorite';
-import LiChart from '../Dashboard/LiChart';
+// import LiChart from '../Dashboard/LiChart';
 import IncomeChart from '../Dashboard/IncomeChart';
 import IncomeCard from '../Dashboard/IncomeCard';
+import IncomeBarchart from '../Dashboard/IncomeBarchart';
 
 function Home() {
   
@@ -15,28 +16,36 @@ function Home() {
     <div className="home-container">
       {isLoggedIn ? (
         <>             
-            <div className="column">
+          <div className="column">
             <h1>DashBoard</h1>
-            </div>
-            <div className='card' >
-              <div className="card-inner">
-                <Favorite />
+            <div className="dash">
+              <div className="row">
+                
+                  <Favorite />
+                
+                <div className="income-card">
+                  <IncomeCard />
                 </div>
-              
-              <div className="card-inner">
-                <IncomeCard  />
-              </div> 
-           </div>
-            
-
-            <div className="row">
-              <div className="LiChart">
-                <LiChart />
-              </div>
-              <div className="IncomeChart ">
-                <IncomeChart />
               </div>
             </div>
+
+            <div className="lower">
+              <div className="row">
+                {/* <div className="LiChart">
+                  <LiChart />
+                </div> */}
+                <div className="IncomeChart ">
+                  <IncomeChart />
+                </div>
+                
+                <div className= 'home-bar-score'>
+                  <IncomeBarchart/>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
           
         </>
       ) : (

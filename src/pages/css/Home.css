@@ -82,3 +82,12 @@
     }
 }
 
+.home-bar-score{
+
+    display: flex;
+  justify-content: center;
+  grid-template-columns: 1fr;
+  padding: 50px 30px 50px 30pxpx;
+  color: rgba(255, 255, 255, 0.95);
+
+}

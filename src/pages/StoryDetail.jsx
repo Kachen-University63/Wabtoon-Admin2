@@ -10,8 +10,6 @@ import AlertDeleteStory from '../components/AlertDeleteStory';
 import AddEPModal from '../components/AddEPModal';
 import AlertDeleteEP from '../components/AlertDeleteEP';
 
-
-
 import './css/StoryDetail.css';
 
 

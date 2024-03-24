@@ -1,66 +1,71 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
-import '../Dashboard/CSS/card.css'
+import '../Dashboard/CSS/card.css';
 
 function Favorite() {
-
-  const [valuesWithCounts, setValuesWithCounts] = useState([]);
+  const [storyData, setStoryData] = useState([]);
+  const [favoriteSum, setFavoriteSum] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchArrayValues = async () => {
-      const collectionRef = collection(db, 'users');
-      const querySnapshot = await getDocs(collectionRef);
+    const fetchData = async () => {
+      try {
+        // Query 'RB' from the 'users' collection
+        const userQuery = query(collection(db, 'users'), where('favorite', 'array-contains', 'RB'));
+        const userQuerySnapshot = await getDocs(userQuery);
 
-      const countByValue = {};
-      querySnapshot.forEach(doc => {
-        const data = doc.data();
-        const valuesArray = data['favorite']; // Replace 'your_array_field' with your actual array field name
-
-        // Count occurrences of each value in the array
-        valuesArray.forEach(value => {
-          countByValue[value] = (countByValue[value] || 0) + 1;
+        // Calculate the sum of favorite results
+        let sum = 0;
+        userQuerySnapshot.forEach(doc => {
+          const userData = doc.data();
+          const favoritesArray = userData.favorite; // Replace 'favorite' with your actual array field name
+          sum += favoritesArray.filter(fav => fav === 'RB').length;
         });
-      });
+        setFavoriteSum(sum);
 
-      // Convert countByValue object to an array of objects with value and count properties
-      const valuesWithCountsArray = Object.keys(countByValue).map(value => ({
-        value,
-        count: countByValue[value],
-      }));
+        // Query 'storys' collection based on 'RB' from users
+        const storyQuery = query(collection(db, 'storys'), where('id', '==', 'RB'));
+        const storyQuerySnapshot = await getDocs(storyQuery);
+        const storyData = storyQuerySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setStoryData(storyData);
 
-      setValuesWithCounts(valuesWithCountsArray);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
     };
 
-    fetchArrayValues();
+    fetchData();
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-
-
-    
-      <div className='card-container'>
-        <div className='card-ef'>
+    <div className='card-container'>
+      <div className='card-ef'>
         <div className='main-title'>
-          
-        <ul>
-          <p>รหัสการ์ตูนและการกดถูกใจ</p>
-            {valuesWithCounts.map(item => (
-              <div key={item.value}>
-            
-                การ์ตูนรหัสเรื่อง: {item.value}
-                จำนวนการกดถูกใจ: {item.count}
-              </div>
+          <h2>Story Data for RB</h2>
+          <ul>
+            {storyData.map(story => (
+              <li key={story.id}>
+                <strong>Title:</strong> {story.title}
+                <br />
+                {/* Add more fields as needed */}
+              </li>
             ))}
-          
-        </ul>
-        </div>
+          </ul>
+          <p>Sum of 'RB' favorites: {favoriteSum}</p>
         </div>
       </div>
-
-
+    </div>
   );
 }
 
 export default Favorite;
-
